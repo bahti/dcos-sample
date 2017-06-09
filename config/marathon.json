@@ -1,0 +1,17 @@
+{
+    "id": "/config",
+    "cpus": 0.5,
+    "mem": 1024,
+    "instances": 1,
+    "ports": [0],
+    "cmd": "java -Xmx256m -jar /app/config.jar --server.port=$PORT0 --endpoints.shutdown.enabled=true",
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "bahtiyarkaba/config",
+            "network": "HOST",
+			"forcePullImage": true,
+			"privileged": true
+        }
+    }
+}

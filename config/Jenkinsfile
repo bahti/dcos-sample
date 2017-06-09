@@ -1,0 +1,33 @@
+ using hostname.
+
+[code language="java"]
+node {
+
+    withMaven(maven:'maven') {
+
+        stage('Checkout') {
+            git url: 'https://github.com/bahti/dcos-sample.git', branch: 'master'
+        }
+
+        stage('Build') {
+            sh 'mvn clean install'
+
+            def pom = readMavenPom file:'pom.xml'
+            print pom.version
+            env.version = pom.version
+        }
+
+        stage('Image') {
+            dir ('account-service') {
+                def app = docker.build "bahtiyarkaba/config:${env.version}"
+                app.push()
+            }
+        }
+
+        stage ('Deploy') {
+            http --check-status PUT http://192.168.216.80/v2/apps/ < marathon.json
+        }     
+
+    }
+
+}
