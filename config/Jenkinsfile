@@ -5,7 +5,7 @@ node {
 
         stage('Build') {
             def mvnTool = tool 'maven'
-            bat "${mvnTool}/bin/mvn clean install"
+            bat "${mvnTool}/bin/mvn clean install -f ./config/pom.xml"
             def pom = readMavenPom file:'pom.xml'
             print pom.version
             env.version = pom.version
