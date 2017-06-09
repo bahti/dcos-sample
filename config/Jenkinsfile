@@ -1,14 +1,11 @@
 node {
-
-    withMaven(maven:'maven') {
-
         stage('Checkout') {
             git url: 'https://github.com/bahti/dcos-sample.git', branch: 'master'
         }
 
         stage('Build') {
-            sh 'mvn clean install'
-
+            def mvnTool = tool 'Maven_3_3_9'
+            sh "${mvnTool}/bin/mvn clean install"
             def pom = readMavenPom file:'pom.xml'
             print pom.version
             env.version = pom.version
@@ -27,5 +24,4 @@ node {
         }     
 
     }
-
 }
