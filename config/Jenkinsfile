@@ -23,7 +23,7 @@ node {
 
         stage ('Deploy') {
             def body = readFile file: 'config/marathon.json'
-            httpRequest  contentType: 'APPLICATION_JSON' httMode: 'PUT' url: 'http://192.168.216.80/v2/apps/' requestBody: body
+            httpRequest contentType: 'APPLICATION_JSON', httMode: 'PUT', url: 'http://192.168.216.80/v2/apps/', requestBody: body
         }     
 
     }
