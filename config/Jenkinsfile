@@ -4,7 +4,7 @@ node {
         }
 
         stage('Build') {
-            def mvnTool = tool 'Maven_3_3_9'
+            def mvnTool = tool 'maven'
             sh "${mvnTool}/bin/mvn clean install"
             def pom = readMavenPom file:'pom.xml'
             print pom.version
